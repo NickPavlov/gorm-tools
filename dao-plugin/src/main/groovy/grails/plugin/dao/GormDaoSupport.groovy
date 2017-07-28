@@ -150,6 +150,14 @@ class GormDaoSupport<T extends GormEntity & WebDataBinding> {
 		return [ ok:true, entity: entity,message:DaoMessage.updated(entity)]
 	}
 
+	List<T> pickList(Map params) {
+		doPickList(params)
+	}
+
+	//TODO needs default impl
+	protected final List<T> doPickList(Map params) {
+		[]
+	}
 
 	/**
 	* deletes a new domain entity base on the id in the params

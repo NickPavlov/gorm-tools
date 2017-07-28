@@ -127,6 +127,14 @@ abstract class RestDaoController<T> extends RestfulController<T> {
 
     }
 
+    def pickList() {
+        Pager pager = new Pager(params)
+        params.offset = pager.offset
+        List<T> entities = dao.pickList(params)
+        Map json = pager.setupData(entities).jsonData
+        respond json
+    }
+
     /**
      * Deletes a resource
      *
@@ -142,6 +150,11 @@ abstract class RestDaoController<T> extends RestfulController<T> {
         def p = new HashMap(JSON.parse(request))
         p.id = params.id
         p
+    }
+
+    def handleDomainException(DomainException e) {
+        response.status = 422
+        render([error: e.message] as JSON)
     }
 
     def handleDomainNotFoundException(DomainNotFoundException e){
