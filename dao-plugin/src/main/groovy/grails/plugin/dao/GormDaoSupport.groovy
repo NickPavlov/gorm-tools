@@ -132,6 +132,13 @@ class GormDaoSupport {
 
 	}
 
+	Map update1(params){
+		def result = update(params)
+		throw new RuntimeException()
+
+		return result
+	}
+
 	/**
 	* deletes a new domain entity base on the id in the params
 	*
